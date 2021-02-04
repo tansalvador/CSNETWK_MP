@@ -20,10 +20,15 @@ public class Connection extends Thread {
         this.master = masterServer;
     }
 
+    public String getClientName() {
+        return this.clientName;
+    }
+
     // Method that can be used by other Connection classes to send message to
     // other Connection class
-    public void receiveMessage(String message) throws IOException {
-        dosWriter.writeUTF(message);
+    public void receiveMessage(String message, String cName) throws IOException {
+        if (!this.clientName.equals(cName))
+            dosWriter.writeUTF(message);
     }
 
     // Called when start() function is called from Server class
@@ -36,20 +41,32 @@ public class Connection extends Thread {
             // Tell other Client classes that this Client class is online through their connections
             ArrayList<Connection> otherConnections = master.getAllConnections();
             for(Connection otherCon : otherConnections) {
-                otherCon.receiveMessage(this.clientName + " is online");
+                otherCon.receiveMessage(this.clientName + " is online", this.clientName);
             }
 
             //
-            BufferedReader buffedReader = new BufferedReader(new InputStreamReader(this.disReader));
             String message;
-            while ((message = buffedReader.readLine()) != null) {
-                dosWriter.writeUTF("Server: " + message);
+            while ((message = this.disReader.readUTF()) != null) {
+                if (message.equalsIgnoreCase("LOGOUT")){
+                    ArrayList<Connection> otherConnections1 = master.getAllConnections();
+                    otherConnections1.remove(this);
+                    for (Connection otherCon1 : otherConnections1) {
+                        otherCon1.receiveMessage(this.clientName + " has logged out", this.clientName);
+                    }
+                    break;
+                }
+                else {
+                    ArrayList<Connection> otherConnections1 = master.getAllConnections();
+                    for (Connection otherCon1 : otherConnections1) {
+                        otherCon1.receiveMessage(this.clientName + " says: " + message, this.clientName);
+                    }
+                }
             }
 
             clientEndpoint.close();
         }
         catch (Exception e) {
-            System.out.println("[" + new Date() + "] Server: Client " + this.clientName + "'s connection has been cut");
+            //System.out.println("[" + new Date() + "] Server: Client " + this.clientName + "'s connection has been cut");
             //e.printStackTrace();
         } finally {
             System.out.println("[" + new Date() + "] Server: Client " + this.clientName + " has disconnected");
