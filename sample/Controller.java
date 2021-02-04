@@ -22,7 +22,13 @@ public class Controller{
     private static boolean answer1, answer2;
 
     public void connectClient(){
-
+        if(username.getText().equals("") || address.getText().equals("") || nPort.getText().equals("")){
+            message.setDisable(true);
+        }
+        else {
+            message.setDisable(false);
+            // connect to the socket or something
+        }
     }
 
     /*
@@ -32,6 +38,7 @@ public class Controller{
     public void addMessage(){
         messageList.getItems().add(message.getText());
         message.clear();
+        // save it somewhere for the chat log?
     }
 
     public void clearFields() throws Exception {
@@ -40,6 +47,16 @@ public class Controller{
         Stage window = (Stage) w;
 
         answer2 = false;
+
+        window.close();
+    }
+
+    public void saveChat(){
+        Scene exit = bExit1.getScene();
+        Window w = exit.getWindow();
+        Stage window = (Stage) w;
+
+        answer2 = true;
 
         window.close();
     }
@@ -76,6 +93,7 @@ public class Controller{
         nPort.clear();
         message.clear();
         messageList.getItems().clear();
+        message.setDisable(true);
     }
 
     public boolean exitChat(){
@@ -96,6 +114,18 @@ public class Controller{
         wExit.showAndWait();
 
         return answer1;
+    }
+
+    public void saveAndExit(){
+        Scene exit = bExit2.getScene();
+        Window w = exit.getWindow();
+        Stage window = (Stage)w;
+
+        // save logs
+
+        answer1 = true;
+
+        window.close();
     }
 
     public void exitProgram(){

@@ -12,7 +12,7 @@
             <Font name="Segoe UI Black" size="23.0" />
          </font>
       </Label>
-      <Button fx:id="bSave" layoutX="55.0" layoutY="126.0" mnemonicParsing="false" style="-fx-background-color: #78C3FB; -fx-border-color: #394648; -fx-border-radius: 20; -fx-background-radius: 20;" text="YES" textFill="#394648">
+      <Button fx:id="bSave" layoutX="55.0" layoutY="126.0" mnemonicParsing="false" onAction="#saveChat" style="-fx-background-color: #78C3FB; -fx-border-color: #394648; -fx-border-radius: 20; -fx-background-radius: 20;" text="YES" textFill="#394648">
          <font>
             <Font name="Segoe UI Black" size="20.0" />
          </font>
