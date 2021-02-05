@@ -13,9 +13,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Date;
 
 
@@ -71,6 +70,14 @@ public class Controller{
         File file = chooser.showOpenDialog(new Stage());
     }
 
+    public void saveLogs() throws Exception{
+        FileWriter writer = new FileWriter("chat log.txt");
+        for(Object content: messageList.getItems()) {
+            writer.write(content + System.lineSeparator());
+        }
+        writer.close();
+    }
+
     public void clearFields() throws Exception {
         Scene exit = bExit1.getScene();
         Window w = exit.getWindow();
@@ -116,6 +123,7 @@ public class Controller{
         String logOutMsg = client.logOut();
         if(answer2 == true){
             messageList.getItems().add(logOutMsg);
+            saveLogs();
         }
         else{
             messageList.getItems().clear();
@@ -125,12 +133,13 @@ public class Controller{
         address.clear();
         nPort.clear();
         message.clear();
+        messageList.getItems().clear();
         message.setDisable(true);
         bConnect.setDisable(false);
         bLogout.setDisable(false);
     }
 
-    public boolean exitChat(){
+    public void exitChat() throws Exception{
         Stage wExit = new Stage();
         wExit.setTitle("Exit Chat");
         wExit.setResizable(false);
@@ -147,15 +156,15 @@ public class Controller{
         }
         wExit.showAndWait();
 
-        return answer1;
+        // if(answer1 == true) {
+        saveLogs();
+
     }
 
     public void saveAndExit(){
         Scene exit = bExit2.getScene();
         Window w = exit.getWindow();
         Stage window = (Stage)w;
-
-        // save logs
 
         answer1 = true;
 
@@ -167,27 +176,9 @@ public class Controller{
         Window w = exit.getWindow();
         Stage window = (Stage)w;
 
-        answer1 = true;
+        answer1 = false;
 
         window.close();
     }
 
-    // For Sending files... NOT WORKING
-    public void openFileExplorer(){
-        try {
-            FileDialog fd = new FileDialog(new JFrame());
-            fd.setVisible(true);
-            File[] f = fd.getFiles();
-            if(f.length > 0){
-                System.out.println(fd.getFiles()[0].getAbsolutePath());
-                System.out.println(fd.getFiles()[0].getCanonicalPath());
-                System.out.println(fd.getFiles()[0].getPath());
-                client.sendFiles(fd.getFiles()[0].getCanonicalPath());
-            }
-        } catch (Exception e)
-        {   System.out.println("Controller Error");
-            System.out.println(e);
-        }
-
-    }
 }

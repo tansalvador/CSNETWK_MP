@@ -20,15 +20,13 @@ public class Main extends Application {
 
         primaryStage.setOnCloseRequest(e ->   {
             e.consume();
-            boolean answer = false;
             try {
-                answer = exit.exitChat();
+                exit.exitChat();
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
 
-            if(answer == true)
-                primaryStage.close();
+            primaryStage.close();
         });
 
         primaryStage.show();
