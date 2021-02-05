@@ -16,18 +16,27 @@ import javafx.stage.Window;
 
 public class Controller{
 
+    // GUI
     public Button bConnect, bLogout, bSend, bExit1, bExit2;
     public TextField username, address, nPort, message;
     public ListView messageList;
     private static boolean answer1, answer2;
+
+    // model
+    private Client client;
+    private Server server;
+    private Connection connection;
 
     public void connectClient(){
         if(username.getText().equals("") || address.getText().equals("") || nPort.getText().equals("")){
             message.setDisable(true);
         }
         else {
+
+            client = new Client(address.getText(), username.getText(), Integer.parseInt(nPort.getText()));
+            client.connectSocket(address.getText(), username.getText(), Integer.parseInt(nPort.getText()));
+            messageList.getItems().add(client.getTest());
             message.setDisable(false);
-            // connect to the socket or something
         }
     }
 
