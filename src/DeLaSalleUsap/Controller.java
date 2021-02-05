@@ -13,6 +13,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.util.Date;
+
 
 public class Controller{
 
@@ -40,12 +42,12 @@ public class Controller{
 
             // Hand off the input stream to Reader class
             String readerStatus = client.notifsON();
-            messageList.getItems().add(readerStatus);
+            messageList.getItems().add("[" + new Date() + "] " + readerStatus);
         }
     }
 
     public void reflectNotifs(String newNotif) {
-        messageList.getItems().add(newNotif);
+        messageList.getItems().add("[" + new Date() + "] " + newNotif);
     }
 
     /*
@@ -53,7 +55,7 @@ public class Controller{
         Reset the input box
      */
     public void addMessage(){
-        messageList.getItems().add(message.getText());
+        messageList.getItems().add("[" + new Date() + "] You: " + message.getText());
         client.readInput(message.getText());
         message.clear();
         // save it somewhere for the chat log?
@@ -103,9 +105,10 @@ public class Controller{
         wOut.showAndWait();
 
         if(answer2 == true){
-            client.logOut();
+
         }
 
+        client.logOut();
         username.clear();
         address.clear();
         nPort.clear();

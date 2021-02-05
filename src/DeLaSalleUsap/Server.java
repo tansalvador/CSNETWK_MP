@@ -44,7 +44,7 @@ public class Server {
 
                 // Read the name sent by the Client class
                 strName = disReader.readUTF();
-                System.out.println("[" + new Date() + "] Server: New client " + strName + " connected at: " + serverEndpoint.getRemoteSocketAddress() + "\n");
+                System.out.println("\n[" + new Date() + "] Server: New client " + strName + " connected at: " + serverEndpoint.getRemoteSocketAddress() + "\n");
 
                 // Send a message to the Client class about successful connection
                 String message1 = "[" + new Date() + "] Welcome " + strName
