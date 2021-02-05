@@ -13,6 +13,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 import java.util.Date;
 
 
@@ -169,4 +172,22 @@ public class Controller{
         window.close();
     }
 
+    // For Sending files... NOT WORKING
+    public void openFileExplorer(){
+        try {
+            FileDialog fd = new FileDialog(new JFrame());
+            fd.setVisible(true);
+            File[] f = fd.getFiles();
+            if(f.length > 0){
+                System.out.println(fd.getFiles()[0].getAbsolutePath());
+                System.out.println(fd.getFiles()[0].getCanonicalPath());
+                System.out.println(fd.getFiles()[0].getPath());
+                client.sendFiles(fd.getFiles()[0].getCanonicalPath());
+            }
+        } catch (Exception e)
+        {   System.out.println("Controller Error");
+            System.out.println(e);
+        }
+
+    }
 }

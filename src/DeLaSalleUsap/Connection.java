@@ -31,6 +31,17 @@ public class Connection extends Thread {
             dosWriter.writeUTF(message);
     }
 
+    public void upFile() {
+        try {
+            FileOutputStream fileReceived = new FileOutputStream("Received.txt");
+            byte[] fileContent = new byte[1000];
+            this.disReader.read(fileContent, 0, fileContent.length);
+            fileReceived.write(fileContent, 0, fileContent.length);
+        } catch (Exception e) {
+
+        }
+    }
+
     // Called when start() function is called from Server class
     @Override
     public void run() {
@@ -54,6 +65,14 @@ public class Connection extends Thread {
                         otherCon1.receiveMessage(this.clientName + " has logged out", this.clientName);
                     }
                     break;
+                }
+                else if (message.equalsIgnoreCase("FILE IN")) {
+                    upFile();
+                    ArrayList<Connection> otherConnections1 = master.getAllConnections();
+                    for (Connection otherCon1 : otherConnections1) {
+                        otherCon1.receiveMessage(this.clientName + " uploaded a file", this.clientName);
+                    }
+                    System.out.println("[" + new Date() + "] " + this.clientName + " uploaded a file");
                 }
                 else {
                     ArrayList<Connection> otherConnections1 = master.getAllConnections();

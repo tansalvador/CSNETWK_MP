@@ -49,6 +49,7 @@ public class Client extends Thread {
             System.out.println(message1);
             return message1;
         } catch (Exception e) {
+            System.out.println(e);
             return "Client Error\n" + e;
         }
     }
@@ -78,7 +79,21 @@ public class Client extends Thread {
 
             this.dosWriter.writeUTF(slaveInput);
         } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
+    public void sendFiles(String PATH) {
+        try {
+            File fFile = new File(PATH);
+
+            FileInputStream inputFile = new FileInputStream("outside.txt");
+            byte[] fileContent = new byte[(int) fFile.length()];
+            inputFile.read(fileContent, 0, fileContent.length);
+            this.dosWriter.writeUTF("FILE IN");
+            this.dosWriter.write(fileContent, 0, fileContent.length);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
@@ -90,6 +105,7 @@ public class Client extends Thread {
 
             return "[" + new Date() + "] Goodbye " + this.strName + ", you have terminated your connection";
         } catch (Exception e) {
+            System.out.println(e);
             return "Client Error\n" + e;
         }
     }
