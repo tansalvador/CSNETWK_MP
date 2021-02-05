@@ -35,6 +35,7 @@ public class Controller{
         else {
             message.setDisable(false);
             bConnect.setDisable(true);
+            bLogout.setDisable(false);
 
             // Connect to Server class and get confirmation for successful connection
             client = new Client(address.getText(), username.getText(), Integer.parseInt(nPort.getText()), this);
@@ -59,7 +60,6 @@ public class Controller{
         messageList.getItems().add("[" + new Date() + "] You: " + message.getText());
         client.readInput(message.getText());
         message.clear();
-        // save it somewhere for the chat log?
     }
 
     public void openFiles(){
@@ -118,13 +118,13 @@ public class Controller{
             messageList.getItems().clear();
         }
 
-
         username.clear();
         address.clear();
         nPort.clear();
         message.clear();
         message.setDisable(true);
         bConnect.setDisable(false);
+        bLogout.setDisable(false);
     }
 
     public boolean exitChat(){

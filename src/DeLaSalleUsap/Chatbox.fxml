@@ -17,7 +17,7 @@
                   <Font name="Tahoma Bold" size="50.0" />
                </font>
             </Label>
-            <Button fx:id="bLogout" layoutX="690.0" layoutY="29.0" mnemonicParsing="false" onAction="#logOut" prefHeight="31.0" prefWidth="84.0" text="LOGOUT">
+            <Button fx:id="bLogout" disable="true" layoutX="690.0" layoutY="29.0" mnemonicParsing="false" onAction="#logOut" prefHeight="31.0" prefWidth="84.0" text="LOGOUT">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
