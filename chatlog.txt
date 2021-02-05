@@ -1,0 +1,4 @@
+[Fri Feb 05 23:16:39 SRET 2021] Welcome asds! You have connected to the server at /127.0.0.1:61887: 8888
+[Fri Feb 05 23:16:39 SRET 2021] Enabling notifications and messages for asds
+[Fri Feb 05 23:16:47 SRET 2021] You: HI im me from the future
+[Fri Feb 05 23:16:53 SRET 2021] Goodbye asds, you have terminated your connection

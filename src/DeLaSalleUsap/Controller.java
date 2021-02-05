@@ -13,12 +13,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Date;
 
 
-public class Controller{
+public class Controller extends Main{
 
     // GUI
     public Button bConnect, bLogout, bSend, bExit1, bExit2;
@@ -52,6 +54,7 @@ public class Controller{
 
     public void reflectNotifs(String newNotif) {
         messageList.getItems().add(newNotif);
+        super.setMessageList(this.messageList);
     }
 
     /*
@@ -62,6 +65,7 @@ public class Controller{
         messageList.getItems().add("[" + new Date() + "] You: " + message.getText());
         client.readInput(message.getText());
         message.clear();
+        super.setMessageList(this.messageList);
     }
 
     public void openFiles(){
@@ -70,8 +74,9 @@ public class Controller{
         File file = chooser.showOpenDialog(new Stage());
     }
 
-    public void saveLogs() throws Exception{
-        FileWriter writer = new FileWriter("chat log.txt");
+    public void saveLogs(ListView messageList) throws Exception{
+
+        FileWriter writer = new FileWriter("chatlog.txt");
         for(Object content: messageList.getItems()) {
             writer.write(content + System.lineSeparator());
         }
@@ -122,8 +127,8 @@ public class Controller{
         wOut.showAndWait();
         String logOutMsg = client.logOut();
         if(answer2 == true){
-            messageList.getItems().add(logOutMsg);
-            saveLogs();
+            this.messageList.getItems().add(logOutMsg);
+            saveLogs(this.messageList);
         }
         else{
             messageList.getItems().clear();
@@ -133,13 +138,13 @@ public class Controller{
         address.clear();
         nPort.clear();
         message.clear();
-        messageList.getItems().clear();
         message.setDisable(true);
         bConnect.setDisable(false);
         bLogout.setDisable(false);
     }
 
-    public void exitChat() throws Exception{
+    public void exitChat(ListView messageList) throws Exception{
+
         Stage wExit = new Stage();
         wExit.setTitle("Exit Chat");
         wExit.setResizable(false);
@@ -155,18 +160,16 @@ public class Controller{
             System.out.println(e);
         }
         wExit.showAndWait();
-
-        // if(answer1 == true) {
-        saveLogs();
-
+        if(answer1 == true){
+            saveLogs(messageList);
+        }
     }
 
-    public void saveAndExit(){
+    public void saveAndExit() throws Exception {
+        answer1 = true;
         Scene exit = bExit2.getScene();
         Window w = exit.getWindow();
         Stage window = (Stage)w;
-
-        answer1 = true;
 
         window.close();
     }
@@ -181,4 +184,23 @@ public class Controller{
         window.close();
     }
 
+    // For Sending files... NOT WORKING
+    public void openFileExplorer(){
+        try {
+            System.out.println("THIS FEATURE IS NOT WORKING");
+            FileDialog fd = new FileDialog(new JFrame());
+            fd.setVisible(true);
+            File[] f = fd.getFiles();
+            if(f.length > 0){
+
+                String path = fd.getFiles()[0].getAbsolutePath().replaceAll("\\\\", "/");
+                System.out.println("file:/" + path);
+                client.sendFiles("file:/" + path);
+            }
+        } catch (Exception e)
+        {   System.out.println("Controller Error");
+            System.out.println(e);
+        }
+
+    }
 }
