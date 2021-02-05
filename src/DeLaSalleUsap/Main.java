@@ -18,6 +18,19 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.setResizable(false);
 
+        primaryStage.setOnCloseRequest(e ->   {
+            e.consume();
+            boolean answer = false;
+            try {
+                answer = exit.exitChat();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            if(answer == true)
+                primaryStage.close();
+        });
+
         primaryStage.show();
     }
 
