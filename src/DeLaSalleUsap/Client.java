@@ -53,7 +53,7 @@ public class Client extends Thread {
 
     // Lets the Reader class update the Listview (message list) in Controller class
     public void readerResults(String notif){
-        this.slaveController.reflectNotifs(notif);
+        this.slaveController.reflectNotifs("[" + new Date() + "] " + notif);
     }
 
     // Handing off the input stream handling to threads

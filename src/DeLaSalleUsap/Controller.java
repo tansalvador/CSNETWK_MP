@@ -47,7 +47,7 @@ public class Controller{
     }
 
     public void reflectNotifs(String newNotif) {
-        messageList.getItems().add("[" + new Date() + "] " + newNotif);
+        messageList.getItems().add(newNotif);
     }
 
     /*
@@ -103,17 +103,19 @@ public class Controller{
         }
 
         wOut.showAndWait();
-
+        String logOutMsg = client.logOut();
         if(answer2 == true){
-
+            messageList.getItems().add(logOutMsg);
+        }
+        else{
+            messageList.getItems().clear();
         }
 
-        client.logOut();
+
         username.clear();
         address.clear();
         nPort.clear();
         message.clear();
-        messageList.getItems().clear();
         message.setDisable(true);
     }
 
