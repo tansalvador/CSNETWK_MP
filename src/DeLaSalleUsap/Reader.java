@@ -24,6 +24,7 @@ public class Reader extends Thread {
 
             while (true) {
                 String message = masterStream.readUTF();
+                masterClient.readerResults(message);
                 System.out.println(message);
                 if (message.equalsIgnoreCase("LOGOUT"))
                     break;

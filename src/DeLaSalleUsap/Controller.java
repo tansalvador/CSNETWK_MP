@@ -32,10 +32,20 @@ public class Controller{
         }
         else {
             message.setDisable(false);
-            client = new Client(address.getText(), username.getText(), Integer.parseInt(nPort.getText()));
-            client.connectSocket(address.getText(), username.getText(), Integer.parseInt(nPort.getText()));
-            messageList.getItems().add(client.getTest());
+
+            // Connect to Server class and get confirmation for successful connection
+            client = new Client(address.getText(), username.getText(), Integer.parseInt(nPort.getText()), this);
+            String connStatus = client.connect();
+            messageList.getItems().add(connStatus);
+
+            // Hand off the input stream to Reader class
+            String readerStatus = client.notifsON();
+            messageList.getItems().add(readerStatus);
         }
+    }
+
+    public void reflectNotifs(String newNotif) {
+        messageList.getItems().add(newNotif);
     }
 
     /*
@@ -44,6 +54,7 @@ public class Controller{
      */
     public void addMessage(){
         messageList.getItems().add(message.getText());
+        client.readInput(message.getText());
         message.clear();
         // save it somewhere for the chat log?
     }
@@ -92,7 +103,7 @@ public class Controller{
         wOut.showAndWait();
 
         if(answer2 == true){
-            // save logs
+            client.logOut();
         }
 
         username.clear();
