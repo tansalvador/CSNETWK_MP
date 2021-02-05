@@ -60,6 +60,7 @@ public class Connection extends Thread {
                     for (Connection otherCon1 : otherConnections1) {
                         otherCon1.receiveMessage(this.clientName + " says: " + message, this.clientName);
                     }
+                    System.out.println("[" + new Date() + "] " + this.clientName + " says: " + message);
                 }
             }
 
