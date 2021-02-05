@@ -34,6 +34,7 @@ public class Controller{
         }
         else {
             message.setDisable(false);
+            bConnect.setDisable(true);
 
             // Connect to Server class and get confirmation for successful connection
             client = new Client(address.getText(), username.getText(), Integer.parseInt(nPort.getText()), this);
@@ -117,48 +118,7 @@ public class Controller{
         nPort.clear();
         message.clear();
         message.setDisable(true);
-    }
-
-    public boolean exitChat(){
-        Stage wExit = new Stage();
-        wExit.setTitle("Exit Chat");
-        wExit.setResizable(false);
-        wExit.initModality(Modality.APPLICATION_MODAL);
-        try
-        {
-            Parent exit = FXMLLoader.load(getClass().getResource("Exit.fxml"));
-            Scene s1 = new Scene(exit, 300,200);
-            wExit.setScene(s1);
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
-        }
-        wExit.showAndWait();
-
-        return answer1;
-    }
-
-    public void saveAndExit(){
-        Scene exit = bExit2.getScene();
-        Window w = exit.getWindow();
-        Stage window = (Stage)w;
-
-        // save logs
-
-        answer1 = true;
-
-        window.close();
-    }
-
-    public void exitProgram(){
-        Scene exit = bExit2.getScene();
-        Window w = exit.getWindow();
-        Stage window = (Stage)w;
-
-        answer1 = true;
-
-        window.close();
+        bConnect.setDisable(false);
     }
 
 }
