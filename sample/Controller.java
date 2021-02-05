@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 
-public class Controller{
+public class Controller extends Main{
 
     // GUI
     public Button bConnect, bLogout, bSend, bExit1, bExit2;

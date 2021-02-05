@@ -36,7 +36,6 @@ public class Client extends Thread {
     public void connectSocket(String strServerAddress, String strName, int nPort){
         try {
             slaveClient = new Client(strServerAddress, strName, nPort);
-            testMsg = (strName + " Connected");
 
             // Connecting to the Server class
             slaveClient.clientEndpoint = new Socket(strServerAddress, nPort);
@@ -56,10 +55,10 @@ public class Client extends Thread {
 
             // Handing off the input stream handling to threads
             Reader slaveReader = new Reader(slaveClient);
-            System.out.println("Enabling notifications and messages for " + strName);
+            testMsg = ("Enabling notifications and messages for " + strName);
             slaveReader.start();
 
-            Scanner scan = new Scanner(System.in);
+           /* Scanner scan = new Scanner(System.in);
             String slaveInput;
             while (!(slaveInput = scan.nextLine()).equalsIgnoreCase("LOGOUT")) {
                 slaveClient.dosWriter.writeUTF(slaveInput);
@@ -68,7 +67,7 @@ public class Client extends Thread {
             // When logging off or cutting connection
             slaveClient.dosWriter.writeUTF("LOGOUT");
             System.out.println("[" + new Date() + "] Goodbye " + strName + ", you have terminated your connection");
-            slaveClient.clientEndpoint.close();
+            slaveClient.clientEndpoint.close();*/
 
         } catch (Exception e) {
             System.out.println("Client Error");
