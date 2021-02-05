@@ -56,10 +56,6 @@ public class Server {
                 // Start the thread
                 Connection client = new Connection(masterServer, strName, serverEndpoint);
                 masterServer.clientConnections.add(client);
-                System.out.println("Current Clients:");
-                for(Connection one : masterServer.clientConnections) {
-                    System.out.println(one);
-                }
                 client.start();
             }
         } catch (Exception e) {
