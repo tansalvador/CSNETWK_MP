@@ -16,6 +16,7 @@ public class Client extends Thread {
 
     private BufferedReader buffedReader;
 
+    // Constructor of Client class
     public Client(String strAdd, String strName, int nPort, Controller mySlave) {
         this.strServerAddress = strAdd;
         this.strName = strName;
@@ -24,6 +25,7 @@ public class Client extends Thread {
         this.slaveController = mySlave;
     }
 
+    // Getter of input stream
     public DataInputStream getInputStream() {
         return this.disReader;
     }
@@ -56,7 +58,7 @@ public class Client extends Thread {
         this.slaveController.reflectNotifs("[" + new Date() + "] " + notif);
     }
 
-    // Handing off the input stream handling to threads
+    // Handing off the input stream handling to threads using Reader class
     public String notifsON() {
         Reader slaveReader = new Reader(this);
         slaveReader.start();
@@ -64,6 +66,7 @@ public class Client extends Thread {
         return "Enabling notifications and messages for " + strName;
     }
 
+    // Putting input in GUI to the Client class' output stream for Connection class to read
     public void readInput(String slaveInput) {
         try {
             Scanner scan = new Scanner(System.in);
