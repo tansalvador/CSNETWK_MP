@@ -33,7 +33,7 @@
                <font>
                   <Font size="15.0" />
                </font></Button>
-            <Button fx:id="bFiles" layoutX="48.0" layoutY="38.0" mnemonicParsing="false" onAction="#openFileExplorer" text="OPEN FILES">
+            <Button fx:id="bFiles" layoutX="48.0" layoutY="38.0" mnemonicParsing="false" onAction="#openFiles" text="OPEN FILES">
                <font>
                   <Font name="Ebrima" size="15.0" />
                </font>
